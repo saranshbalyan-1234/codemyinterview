@@ -1,0 +1,18 @@
+{
+  "name": "stealth-overlay-app",
+  "version": "1.0.0",
+  "description": "Tested overlay with scroll shortcuts",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^29.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.8.4",
+    "screenshot-desktop": "^1.15.1"
+  }
+}

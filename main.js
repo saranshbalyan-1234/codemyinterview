@@ -2,9 +2,8 @@ const { app, BrowserWindow, globalShortcut, ipcMain } = require('electron');
 const screenshot = require('screenshot-desktop');
 const path = require('path');
 const fs = require('fs');
-const axios = require('axios');
 const record = require('node-record-lpcm16');
-const FormData = require('form-data');
+const { imageAi,sendToChatGPTImage,sendToChatGPTAudio} = require('./ai');
 
 let win;
 let stealthMode = false;
@@ -59,7 +58,8 @@ app.whenReady().then(() => {
     if (!stealthMode) return;
     screenshot({ format: 'png' }).then((img) => {
       const base64Image = img.toString('base64');
-      sendToChatGPTImage(base64Image);
+      // sendToChatGPTImage(base64Image,apiKey,win);
+      imageAi(base64Image,apiKey,win)
     }).catch(err => {
       win.webContents.send('ai-response', 'Screenshot failed: ' + err.message);
     });
@@ -85,7 +85,7 @@ app.whenReady().then(() => {
         if (recordingProcess) {
           recordingProcess.stop();
           recordingProcess = null;
-          sendToChatGPTAudio(filePath);
+          sendToChatGPTAudio(filePath,apiKey,win);
         }
       }, 10000);
     }
@@ -102,68 +102,5 @@ ipcMain.on('enter-stealth-mode', (_, key) => {
   win.setContentProtection(true);
 });
 
-function sendToChatGPTImage(base64Image) {
-  const data = {
-    model: 'gpt-4o',
-    messages: [{
-      role: 'user',
-      content: [
-        { type: 'text', text: 'What do you see in this image?' },
-        {
-          type: 'image_url',
-          image_url: {
-            url: `data:image/png;base64,${base64Image}`
-          }
-        }
-      ]
-    }],
-    max_tokens: 1000
-  };
-
-  axios.post('https://api.openai.com/v1/chat/completions', data, {
-    headers: {
-      'Authorization': `Bearer ${apiKey}`,
-      'Content-Type': 'application/json'
-    }
-  }).then(res => {
-    win.webContents.send('ai-response', res.data.choices[0].message.content);
-  }).catch(err => {
-    win.webContents.send('ai-response', 'OpenAI error: ' + (err.response?.data?.error?.message || err.message));
-  });
-}
-
-function sendToChatGPTAudio(filePath) {
-  const formData = new FormData();
-  formData.append('file', fs.createReadStream(filePath));
-  formData.append('model', 'whisper-1');
-
-  axios.post('https://api.openai.com/v1/audio/transcriptions', formData, {
-    headers: {
-      ...formData.getHeaders(),
-      'Authorization': `Bearer ${apiKey}`
-    }
-  }).then(res => {
-    sendTextToChatGPT(res.data.text);
-  }).catch(err => {
-    win.webContents.send('ai-response', 'Whisper error: ' + (err.response?.data?.error?.message || err.message));
-  });
-}
-
-function sendTextToChatGPT(prompt) {
-  axios.post('https://api.openai.com/v1/chat/completions', {
-    model: 'gpt-4',
-    messages: [{ role: 'user', content: prompt }],
-    max_tokens: 1000
-  }, {
-    headers: {
-      'Authorization': `Bearer ${apiKey}`,
-      'Content-Type': 'application/json'
-    }
-  }).then(res => {
-    win.webContents.send('ai-response', res.data.choices[0].message.content);
-  }).catch(err => {
-    win.webContents.send('ai-response', 'ChatGPT error: ' + (err.response?.data?.error?.message || err.message));
-  });
-}
 
 app.on('will-quit', () => globalShortcut.unregisterAll());

@@ -1,6 +1,5 @@
 const { app, BrowserWindow, globalShortcut, ipcMain } = require('electron');
 const screenshot = require('screenshot-desktop');
-const path = require('path');
 const fs = require('fs');
 const record = require('node-record-lpcm16');
 const { imageAi,sendToChatGPTImage,sendToChatGPTAudio} = require('./ai');

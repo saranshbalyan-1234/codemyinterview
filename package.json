@@ -11,6 +11,7 @@
     "electron": "^29.0.0",
     "form-data": "^4.0.0",
     "node-record-lpcm16": "^1.0.1",
+    "nodejs-whisper": "^0.2.6",
     "screenshot-desktop": "^1.12.7"
   }
 }

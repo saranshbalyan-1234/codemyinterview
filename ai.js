@@ -1,6 +1,9 @@
 const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
+const os = require('os');
+const path = require('path');
+const { nodewhisper} = require('nodejs-whisper'); 
 const API_KEY = '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'
 const endpoint = 'https://openrouter.ai/api/v1/chat/completions';
 
@@ -75,7 +78,23 @@ const endpoint = 'https://openrouter.ai/api/v1/chat/completions';
   });
  }
 
- function sendToChatGPTAudio(buffer,apiKey,win) {
+function sendToChatGPTAudio(buffer, apiKey, win) {
+   
+  const tempFilePath = path.join(os.tmpdir(), `voice-${Date.now()}.wav`);
+
+  fs.writeFileSync(tempFilePath, buffer);
+
+  nodewhisper(tempFilePath, {
+    model: 'tiny',
+// outputFormat: 'txt'
+  }).then(result => {
+    console.log('📝 Transcription:', result.text);
+    fs.unlinkSync(tempFilePath); // clean up
+  }).catch(err => {
+    console.error('❌ Whisper error:', err);
+  });
+
+
   const formData = new FormData();
   formData.append('file', buffer, {
     filename: 'voice.wav',

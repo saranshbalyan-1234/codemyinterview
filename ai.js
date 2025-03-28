@@ -2,13 +2,14 @@ const axios = require('axios');
 const endpoint = 'https://openrouter.ai/api/v1/chat/completions';
 
 
- async function imageAi(base64Image,apiKey,win) {
+async function imageAi(base64Image, apiKey, win) {
+  win.webContents.send('ai-response', 'Loading...');
 
   const messages = [
     {
       role: 'user',
       content: [
-        { type: 'text', text: 'Solve this with the best approach in js' },
+        { type: 'text', text: 'Solve this using JS in a optimize way' },
         {
           type: 'image_url',
           image_url: {
@@ -25,7 +26,7 @@ const endpoint = 'https://openrouter.ai/api/v1/chat/completions';
     const res = await axios.post(
       endpoint,
       {
-        model: 'anthropic/claude-3-haiku',
+        model: 'google/gemma-3-27b-it:free',
         messages: messages,
         max_tokens: 1000
       },
@@ -36,8 +37,13 @@ const endpoint = 'https://openrouter.ai/api/v1/chat/completions';
         }
       }
     );
-    win.webContents.send('ai-response', res.data.choices[0].message.content);
-    console.log(res.data.choices[0].message.content);
+    if (res.data.choices?.[0]?.message) {
+      const content = res.data.choices[0].message.content || res.data.choices[0].message.reasoning
+      win.webContents.send('ai-response', content || "Error, Try again");
+    }else{
+      win.webContents.send('ai-response', "Error, Try again");
+    }
+    // console.log(res);
   } catch (err) {
     console.error('Error:', err.response?.data || err.message);
   }

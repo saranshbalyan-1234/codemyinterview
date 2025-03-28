@@ -11,6 +11,7 @@ let apiKey = '';
 let recordingProcess = null;
 
 app.whenReady().then(() => {
+  const recordProgram = process.platform === 'win32' ? 'sox' : 'rec';
   app.setName(' ');
   if (process.platform === 'darwin') app.dock.hide();
 
@@ -67,29 +68,38 @@ app.whenReady().then(() => {
 
   globalShortcut.register('Command+2', () => {
     if (!stealthMode) return;
+  
     if (recordingProcess) {
       recordingProcess.stop();
       recordingProcess = null;
+  
+      // Send the in-memory buffer to ChatGPT
+      const audioBuffer = Buffer.concat(audioChunks);
+      sendToChatGPTAudio(audioBuffer, apiKey, win);
       win.webContents.send('ai-response', 'Voice recording stopped.');
     } else {
-      const filePath = path.join(app.getPath('temp'), `voice-${Date.now()}.wav`);
+      audioChunks = [];
+  
       recordingProcess = record.record({
         sampleRateHertz: 16000,
         threshold: 0.5,
         verbose: false,
-        recordProgram: 'sox',
+        recordProgram,
         silence: '1.0',
-      }).stream().pipe(fs.createWriteStream(filePath));
-
-      setTimeout(() => {
-        if (recordingProcess) {
-          recordingProcess.stop();
-          recordingProcess = null;
-          sendToChatGPTAudio(filePath,apiKey,win);
-        }
-      }, 10000);
+      });
+  
+      const stream = recordingProcess.stream();
+  
+      stream.on('data', chunk => audioChunks.push(chunk));
+      stream.on('error', err => {
+        console.error('Recording stream error:', err);
+        win.webContents.send('ai-response', 'Recording failed: ' + err.message);
+      });
+  
+      win.webContents.send('ai-response', 'Voice recording started...');
     }
   });
+  
 
   globalShortcut.register('Command+8', () => win.webContents.send('scroll-up'));
   globalShortcut.register('Command+9', () => win.webContents.send('scroll-down'));

@@ -20,7 +20,7 @@ async function imageAi(base64Image, apiKey, win) {
     }
   ];
    
-   console.log("using key",apiKey)
+   console.log("Uploading image")
 
   try {
     const res = await axios.post(

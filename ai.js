@@ -1,15 +1,16 @@
 const axios = require('axios');
+const apiKey = require('./key')
 const endpoint = 'https://openrouter.ai/api/v1/chat/completions';
 
 
-async function imageAi(base64Image, apiKey, win) {
+async function imageAi(base64Image, language,model, win) {
   win.webContents.send('ai-response', 'Loading...');
 
   const messages = [
     {
       role: 'user',
       content: [
-        { type: 'text', text: 'Solve this using JS in a optimize way' },
+        { type: 'text', text: `Solve this using ${language} in a optimize way` },
         {
           type: 'image_url',
           image_url: {
@@ -19,14 +20,14 @@ async function imageAi(base64Image, apiKey, win) {
       ]
     }
   ];
-   
+   console.log(`using ${language}, model: ${model}`)
    console.log("Uploading image")
 
   try {
     const res = await axios.post(
       endpoint,
       {
-        model: 'google/gemma-3-27b-it:free',
+        model: model,
         messages: messages,
         max_tokens: 1000
       },

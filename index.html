@@ -55,13 +55,13 @@
     <div class="header"></div>
     <div id="setup">
       <h2>Enter ChatGPT API Key</h2>
-      <input type="text" id="apiKey" placeholder="sk-..." />
+      <input type="text" id="language" placeholder="language" value="javascript" />
+      <input type="text" id="model" placeholder="model" value="google/gemma-3-27b-it:free" />
       <button onclick="start()">Start</button>
       <div style="margin-top: 20px; padding: 10px; border: 1px solid rgba(255,255,255,0.3); width: 320px; font-size: 13px; line-height: 1.5; background-color: rgba(255,255,255,0.05); border-radius: 6px;">
         <strong>Hotkeys:</strong><br>
         ⌘ + 0 → Quit App<br>
         ⌘ + 1 → Screenshot to ChatGPT<br>
-        ⌘ + 2 → Toggle Voice Capture<br>
         ⌘ + 8 / 9 → Scroll ChatGPT Output<br>
         ⌘ + ↑ ↓ ← → → Move Overlay Window
       </div>
@@ -74,15 +74,19 @@
       const { ipcRenderer } = require('electron');
 
       function start() {
-        const key = document.getElementById('apiKey').value.trim();
-        if (!key) return alert('Please enter your API key');
-        ipcRenderer.send('enter-stealth-mode', key);
+       try{
+         const language = document.getElementById('language').value.trim();
+        const model = document.getElementById('model').value.trim();
+        if (!language || !model) return alert('Please enter details');
+        ipcRenderer.send('enter-stealth-mode', language, model);
         document.getElementById('setup').style.display = 'none';
         const result = document.getElementById('result');
         result.style.display = 'block';
         result.innerText = 'Waiting for screenshot...';
+      }catch(e){
+        console.log(e);
       }
-
+    }
       ipcRenderer.on('ai-response', (_, data) => {
         const result = document.getElementById('result');
         result.innerText = data;

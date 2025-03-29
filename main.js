@@ -4,7 +4,8 @@ const { imageAi} = require('./ai');
 
 let win;
 let stealthMode = false;
-let apiKey = '';
+let language = '';
+let model = '';
 
 app.whenReady().then(() => {
   app.setName(' ');
@@ -55,7 +56,7 @@ app.whenReady().then(() => {
     screenshot({ format: 'png' }).then((img) => {
       const base64Image = img.toString('base64');
       // sendToChatGPTImage(base64Image,apiKey,win);
-      imageAi(base64Image,apiKey,win)
+      imageAi(base64Image,language,model,win)
     }).catch(err => {
       win.webContents.send('ai-response', 'Screenshot failed: ' + err.message);
     });
@@ -66,8 +67,9 @@ app.whenReady().then(() => {
   globalShortcut.register('Command+9', () => win.webContents.send('scroll-down'));
 });
 
-ipcMain.on('enter-stealth-mode', (_, key) => {
-  apiKey = key;
+ipcMain.on('enter-stealth-mode', (_, lan,mod) => {
+  language = lan;
+  model = mod;
   stealthMode = true;
   win.setIgnoreMouseEvents(true);
   win.setContentProtection(true);

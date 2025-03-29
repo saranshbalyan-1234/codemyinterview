@@ -2,7 +2,7 @@
 
 A transparent, always-on-top Electron overlay that lets you:
 
-✅ Always free, no need to buy any other tool.
+✅ Always free, no need to buy any other tool. 
 ✅ Take screenshots and send to AI  
 ✅ Interact with AI responses directly in a floating window  
 ✅ Stay invisible to screen recording and sharing tools  

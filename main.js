@@ -1,6 +1,7 @@
 const { app, BrowserWindow, globalShortcut, ipcMain } = require('electron');
 const screenshot = require('screenshot-desktop');
-const { imageAi} = require('./ai');
+const { imageAi } = require('./ai');
+const path = require('path');
 
 let win;
 let stealthMode = false;
@@ -28,7 +29,8 @@ app.whenReady().then(() => {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-    }
+    },
+    icon: path.join(__dirname, 'assets', getPlatformIcon()), // 👇
   });
 
   win.loadFile('index.html');
@@ -87,3 +89,12 @@ ipcMain.on('enter-stealth-mode', (_, lan,mod) => {
 
 
 app.on('will-quit', () => globalShortcut.unregisterAll());
+
+
+function getPlatformIcon() {
+  switch (process.platform) {
+    case 'darwin': return 'icon.icns';
+    case 'win32': return 'icon.ico';
+    default: return 'icon.png';
+  }
+}

@@ -37,18 +37,17 @@ A transparent, always-on-top Electron overlay that lets you:
 
 ### macOS (after extracting `.dmg`)
 
-1. Drag `StealthOverlay.app` to `/Applications`
+1. Drag `CodeMyInterview.app` to `/Applications`
 2. Run this in Terminal to bypass Gatekeeper:
 
    ```bash
-   xattr -cr /Applications/StealthOverlay.app
-   open /Applications/StealthOverlay.app
+   xattr -cr /Applications/CodeMyInterview.app
+   open /Applications/CodeMyInterview.app
 
 ## ⚙️ Developer Setup
 
-### 1. Clone and Install
-
 ```bash
-git clone https://github.com/your-org/stealth-overlay.git
-cd stealth-overlay
+git clone https://github.com/saranshbalyan-1234/codemyinterview.git
+cd codemyinterview
 npm install
+npm start

@@ -7,6 +7,7 @@ let stealthMode = false;
 let language = '';
 let model = '';
 let isVisible = true;
+const toggleKey = process.platform === 'darwin' ? 'Command' : 'Control';
 
 app.whenReady().then(() => {
   app.setName(' ');
@@ -33,26 +34,26 @@ app.whenReady().then(() => {
   win.loadFile('index.html');
 
   const moveStep = 20;
-  globalShortcut.register('Command+Left', () => {
+  globalShortcut.register(`${toggleKey}+Left`, () => {
     const { x, y } = win.getBounds();
     win.setBounds({ x: x - moveStep, y, width: 800, height: 600 });
   });
-  globalShortcut.register('Command+Right', () => {
+  globalShortcut.register(`${toggleKey}+Right`, () => {
     const { x, y } = win.getBounds();
     win.setBounds({ x: x + moveStep, y, width: 800, height: 600 });
   });
-  globalShortcut.register('Command+Up', () => {
+  globalShortcut.register(`${toggleKey}+Up`, () => {
     const { x, y } = win.getBounds();
     win.setBounds({ x, y: y - moveStep, width: 800, height: 600 });
   });
-  globalShortcut.register('Command+Down', () => {
+  globalShortcut.register(`${toggleKey}+Down`, () => {
     const { x, y } = win.getBounds();
     win.setBounds({ x, y: y + moveStep, width: 800, height: 600 });
   });
 
-  globalShortcut.register('Command+0', () => app.quit());
+  globalShortcut.register(`${toggleKey}+0`, () => app.quit());
 
-  globalShortcut.register('Command+1', () => {
+  globalShortcut.register(`${toggleKey}+1`, () => {
     if (!stealthMode) return;
     screenshot({ format: 'png' }).then((img) => {
       const base64Image = img.toString('base64');
@@ -63,7 +64,7 @@ app.whenReady().then(() => {
     });
   });
 
-  globalShortcut.register('Command+2', () => {
+  globalShortcut.register(`${toggleKey}+2`, () => {
     if (isVisible) {
       win.hide();
     } else {
@@ -72,8 +73,8 @@ app.whenReady().then(() => {
     isVisible = !isVisible;
   });
 
-  globalShortcut.register('Command+8', () => win.webContents.send('scroll-up'));
-  globalShortcut.register('Command+9', () => win.webContents.send('scroll-down'));
+  globalShortcut.register(`${toggleKey}+8`, () => win.webContents.send('scroll-up'));
+  globalShortcut.register(`${toggleKey}+9`, () => win.webContents.send('scroll-down'));
 });
 
 ipcMain.on('enter-stealth-mode', (_, lan,mod) => {

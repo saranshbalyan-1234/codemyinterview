@@ -12,8 +12,8 @@ A transparent, always-on-top Electron overlay that lets you:
 ## 🚀 Features
 
 - **Stealth Mode** (click-through + screen-capture protected)
-- **OpenAI Integration**
-  - GPT-4 Vision for screenshots
+- **AI Integration**
+  - screenshot the window, analyse it and find the solution
 - **Always on Top Overlay**
   - Transparent
   - No dock/taskbar icon

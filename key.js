@@ -1,3 +1,3 @@
-const KEY='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'
+const KEY='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'
 
 module.exports = KEY;

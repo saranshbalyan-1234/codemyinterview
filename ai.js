@@ -10,7 +10,7 @@ async function imageAi(base64Image, language,model, win) {
     {
       role: 'user',
       content: [
-        { type: 'text', text: `Solve this using ${language} in a optimize way` },
+        { type: 'text', text: `Solve this using ${language} in a optimized way and give me answer in following format, what is problem statement, whats the solution and explanation of solution, and whats the time and space complexity, is there any other way to improve this` },
         {
           type: 'image_url',
           image_url: {
@@ -20,7 +20,8 @@ async function imageAi(base64Image, language,model, win) {
       ]
     }
   ];
-   console.log(`using ${language}, model: ${model}`)
+  console.log(`using ${language}, model: ${model}`)
+  console.log('key',apiKey)
    console.log("Uploading image")
 
   try {

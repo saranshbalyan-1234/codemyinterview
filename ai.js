@@ -15,7 +15,7 @@ async function imageAi(base64Image, language,model, win) {
           }
         },
         {
-          text: `Solve this using ${language} in a optimized way and give me answer in following format, what is problem statement, whats the solution and explanation of solution, and whats the time and space complexity, is there any other way to improve this`
+          text: `Solve this using ${language} in a optimized way and give me answer in following format, what is problem statement, whats the solution and explanation of solution,an alternate solution and whats the time and space complexity, is there any other way to improve this`
         }
       ]
     }]

@@ -24,7 +24,7 @@ jobs:
         run: npm run build
 
       - name: Upload macOS artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: macos-app
           path: dist/*.dmg
@@ -47,7 +47,7 @@ jobs:
         run: npm run build
 
       - name: Upload Windows artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: windows-app
           path: dist/*.exe
@@ -70,7 +70,7 @@ jobs:
         run: npm run build
 
       - name: Upload Linux artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: linux-app
           path: dist/*.AppImage

@@ -1,25 +1,21 @@
 {
-  "name": "stealth-overlay-app",
+  "name": "code-my-interview",
   "version": "1.0.0",
   "author":"Saransh Balyan",
-  "description": "Stealth overlay app with ChatGPT and voice support",
+  "description": "Code my Interview with help of AI (Stealth Mode)",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder"
   },
   "build": {
-  "appId": "com.example.stealthapp",
-  "productName": "StealthOverlay",
-  "mac": {
-    "target": "dmg"
-  },
-  "win": {
-    "target": "nsis"
-  },
-  "files": [
-    "**/*"
-  ]
+  "appId": "com.example.codemyinterview",
+  "productName": "CodeMyInterview",
+  "mac": { "target": "dmg" },
+  "win": { "target": "nsis" },
+  "linux": { "target": "AppImage" },
+  "files": [ "**/*" ],
+  "publish": { "provider": "github" }
 },
   "dependencies": {
     "axios": "^1.6.8",

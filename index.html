@@ -55,21 +55,21 @@
   <body>
     <div class="header">Code My Interview: By Saransh</div>
     <div id="setup">
-      <h2>Enter ChatGPT API Key</h2>
+      <h2>Code My Interview</h2>
       <input type="text" id="language" placeholder="language" value="javascript" />
       <input type="text" id="model" placeholder="model" value="google/gemma-3-27b-it:free" />
       <button onclick="start()">Start</button>
       <div style="margin-top: 20px; padding: 10px; border: 1px solid rgba(255,255,255,0.3); width: 320px; font-size: 13px; line-height: 1.5; background-color: rgba(255,255,255,0.05); border-radius: 6px;">
         <strong>Hotkeys:</strong><br>
-        ⌘ + 0 → Quit App<br>
-        ⌘ + 1 → Screenshot to ChatGPT<br>
-        ⌘ + 8 / 9 → Scroll ChatGPT Output<br>
-        ⌘ + ↑ ↓ ← → → Move Overlay Window
+        ⌘ + 1 → Screenshot & Analyze<br>
+        ⌘ + 8 / 9 → Scroll Output<br>
+        ⌘ + ↑ ↓ ← → → Move Overlay Window<br>
+        ⌘ + 0 → Quit App
       </div>
     </div>
     <div id="result">Waiting for screenshot...</div>
     <div class="instructions">
-      ⌘ + Arrow = Move | ⌘ + 0 = Quit | ⌘ + 1 = Screenshot & Analyze | ⌘ + 8/9 = Scroll
+       ⌘ + 1 = Screenshot & Analyze | ⌘ + 8/9 = Scroll | ⌘ + Arrow = Move | ⌘ + 0 = Quit 
     </div>
     <script>
       const { ipcRenderer } = require('electron');

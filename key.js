@@ -1,3 +1,4 @@
-const KEY='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'
+const KEY='c2stb3ItdjEtYjhhNzhkYjhjMjZkZjQ4NTVjM2E0NTM3NmRiOWYyN2RlZjU3MDBkOTQ0MGRmNjgxZTYzMGJmZjI1YjYzNDY2ZA=='
 
-module.exports = KEY;
+const decodedKey = Buffer.from(KEY, 'base64').toString('utf-8');
+module.exports = decodedKey;

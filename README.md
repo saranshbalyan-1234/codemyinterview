@@ -3,7 +3,6 @@
 A transparent, always-on-top Electron overlay that lets you:
 
 ✅ Take screenshots and send to ChatGPT  
-✅ Capture voice and transcribe it via Whisper  
 ✅ Interact with AI responses directly in a floating window  
 ✅ Stay invisible to screen recording and sharing tools  
 ✅ Use customizable keyboard shortcuts for full control
@@ -15,7 +14,6 @@ A transparent, always-on-top Electron overlay that lets you:
 - **Stealth Mode** (click-through + screen-capture protected)
 - **OpenAI Integration**
   - GPT-4 Vision for screenshots
-  - Whisper API for voice-to-text
 - **Always on Top Overlay**
   - Transparent
   - No dock/taskbar icon
@@ -30,7 +28,6 @@ A transparent, always-on-top Electron overlay that lets you:
 |----------------|----------------------------------|
 | ⌘ + 0          | Quit the app                     |
 | ⌘ + 1          | Take a screenshot & ask ChatGPT  |
-| ⌘ + 2          | Start/Stop voice recording       |
 | ⌘ + 8 / ⌘ + 9  | Scroll AI response up/down       |
 | ⌘ + Arrows     | Move window around screen        |
 
@@ -46,3 +43,12 @@ A transparent, always-on-top Electron overlay that lets you:
    ```bash
    xattr -cr /Applications/StealthOverlay.app
    open /Applications/StealthOverlay.app
+
+## ⚙️ Developer Setup
+
+### 1. Clone and Install
+
+```bash
+git clone https://github.com/your-org/stealth-overlay.git
+cd stealth-overlay
+npm install

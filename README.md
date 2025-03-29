@@ -48,12 +48,13 @@ A transparent, always-on-top Electron overlay that lets you:
 
 ## ⚙️ Developer Setup
 
-  ```bash
+```bash
   git clone https://github.com/saranshbalyan-1234/codemyinterview.git
   cd codemyinterview
   npm install
   npm start
+```
 
-## 🚀 Note
+### 🚀 Note
 - Generate your key from google Studio and encode in base64 and paste it in key.js
 - Your your own api in ai.js, make sure to change index.html accordingly

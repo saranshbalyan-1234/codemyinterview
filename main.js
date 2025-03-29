@@ -1,18 +1,18 @@
-const { app, BrowserWindow, globalShortcut, ipcMain } = require('electron');
-const screenshot = require('screenshot-desktop');
-const { imageAi } = require('./ai');
-const path = require('path');
+const { app, BrowserWindow, globalShortcut, ipcMain } = require("electron");
+const screenshot = require("screenshot-desktop");
+const { imageAi } = require("./ai");
+const path = require("path");
 
 let win;
 let stealthMode = false;
-let language = '';
-let model = '';
+let language = "";
+let model = "";
 let isVisible = true;
-const toggleKey = process.platform === 'darwin' ? 'Command' : 'Control';
+const toggleKey = process.platform === "darwin" ? "Command" : "Control";
 
 app.whenReady().then(() => {
-  app.setName(' ');
-  if (process.platform === 'darwin') app.dock.hide();
+  app.setName(" ");
+  if (process.platform === "darwin") app.dock.hide();
 
   win = new BrowserWindow({
     width: 800,
@@ -30,10 +30,10 @@ app.whenReady().then(() => {
       nodeIntegration: true,
       contextIsolation: false,
     },
-    icon: path.join(__dirname, 'assets', getPlatformIcon()), // 👇
+    icon: path.join(__dirname, "assets", getPlatformIcon()), // 👇
   });
 
-  win.loadFile('index.html');
+  win.loadFile("index.html");
 
   const moveStep = 20;
   globalShortcut.register(`${toggleKey}+Left`, () => {
@@ -57,13 +57,18 @@ app.whenReady().then(() => {
 
   globalShortcut.register(`${toggleKey}+1`, () => {
     if (!stealthMode) return;
-    screenshot({ format: 'png' }).then((img) => {
-      const base64Image = img.toString('base64');
-      // sendToChatGPTImage(base64Image,apiKey,win);
-      imageAi(base64Image,language,model,win)
-    }).catch(err => {
-      win.webContents.send('ai-response', 'Screenshot failed: ' + err.message);
-    });
+    screenshot({ format: "png" })
+      .then((img) => {
+        const base64Image = img.toString("base64");
+        // sendToChatGPTImage(base64Image,apiKey,win);
+        imageAi(base64Image, language, model, win);
+      })
+      .catch((err) => {
+        win.webContents.send(
+          "ai-response",
+          "Screenshot failed: " + err.message,
+        );
+      });
   });
 
   globalShortcut.register(`${toggleKey}+2`, () => {
@@ -75,11 +80,15 @@ app.whenReady().then(() => {
     isVisible = !isVisible;
   });
 
-  globalShortcut.register(`${toggleKey}+8`, () => win.webContents.send('scroll-up'));
-  globalShortcut.register(`${toggleKey}+9`, () => win.webContents.send('scroll-down'));
+  globalShortcut.register(`${toggleKey}+8`, () =>
+    win.webContents.send("scroll-up"),
+  );
+  globalShortcut.register(`${toggleKey}+9`, () =>
+    win.webContents.send("scroll-down"),
+  );
 });
 
-ipcMain.on('enter-stealth-mode', (_, lan,mod) => {
+ipcMain.on("enter-stealth-mode", (_, lan, mod) => {
   language = lan;
   model = mod;
   stealthMode = true;
@@ -87,14 +96,15 @@ ipcMain.on('enter-stealth-mode', (_, lan,mod) => {
   win.setContentProtection(true);
 });
 
-
-app.on('will-quit', () => globalShortcut.unregisterAll());
-
+app.on("will-quit", () => globalShortcut.unregisterAll());
 
 function getPlatformIcon() {
   switch (process.platform) {
-    case 'darwin': return 'icon.icns';
-    case 'win32': return 'icon.ico';
-    default: return 'icon.png';
+    case "darwin":
+      return "icon.icns";
+    case "win32":
+      return "icon.ico";
+    default:
+      return "icon.png";
   }
 }

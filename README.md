@@ -25,13 +25,13 @@ A transparent, always-on-top Electron overlay that lets you:
 
 ## 🧠 Keyboard Shortcuts
 
-| Shortcut        | Action                          |
-|----------------|----------------------------------|
-| ⌘ + 0          | Quit the app                     |
-| ⌘ + 1          | Take a screenshot & ask AI       |
-| ⌘ + 2          | Show/Hide Window                 |
-| ⌘ + 8 / ⌘ + 9  | Scroll AI response up/down       |
-| ⌘ + Arrows     | Move window around screen        |
+| Shortcut      | Action                     |
+| ------------- | -------------------------- |
+| ⌘ + 0         | Quit the app               |
+| ⌘ + 1         | Take a screenshot & ask AI |
+| ⌘ + 2         | Show/Hide Window           |
+| ⌘ + 8 / ⌘ + 9 | Scroll AI response up/down |
+| ⌘ + Arrows    | Move window around screen  |
 
 ---
 
@@ -45,6 +45,7 @@ A transparent, always-on-top Electron overlay that lets you:
    ```bash
    xattr -cr /Applications/CodeMyInterview.app
    open /Applications/CodeMyInterview.app
+   ```
 
 ## ⚙️ Developer Setup
 
@@ -56,5 +57,6 @@ A transparent, always-on-top Electron overlay that lets you:
 ```
 
 ### 🚀 Note
+
 - Generate your key from google Studio and encode in base64 and paste it in key.js
 - Your your own api in ai.js, make sure to change index.html accordingly

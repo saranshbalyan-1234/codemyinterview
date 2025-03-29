@@ -1,13 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta charset="UTF-8" />
     <style>
-      html, body {
+      html,
+      body {
         margin: 0;
         height: 100%;
         font-family: sans-serif;
-        background: rgba(128,128,128,0.3);
+        background: rgba(128, 128, 128, 0.3);
         color: white;
         display: flex;
         flex-direction: column;
@@ -56,52 +57,74 @@
     <div class="header">Code My Interview: By Saransh</div>
     <div id="setup">
       <h2>Code My Interview</h2>
-      <input type="text" id="language" placeholder="language" value="javascript" />
-      <input type="text" id="model" placeholder="model" value="gemini-2.0-flash" />
+      <input
+        type="text"
+        id="language"
+        placeholder="language"
+        value="javascript"
+      />
+      <input
+        type="text"
+        id="model"
+        placeholder="model"
+        value="gemini-2.0-flash"
+      />
       <button onclick="start()">Start</button>
-      <div style="margin-top: 20px; padding: 10px; border: 1px solid rgba(255,255,255,0.3); width: 320px; font-size: 13px; line-height: 1.5; background-color: rgba(255,255,255,0.05); border-radius: 6px;">
-        <strong>Hotkeys:</strong><br>
-        ⌘ + 0 → Quit App<br>
-        ⌘ + 1 → Screenshot & Analyze<br>
-        ⌘ + 2 = Show/Hide Window<br>
-        ⌘ + 8 / 9 → Scroll Output<br>
-        ⌘ + ↑ ↓ ← → → Move Overlay Window<br>
+      <div
+        style="
+          margin-top: 20px;
+          padding: 10px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          width: 320px;
+          font-size: 13px;
+          line-height: 1.5;
+          background-color: rgba(255, 255, 255, 0.05);
+          border-radius: 6px;
+        "
+      >
+        <strong>Hotkeys:</strong><br />
+        ⌘ + 0 → Quit App<br />
+        ⌘ + 1 → Screenshot & Analyze<br />
+        ⌘ + 2 = Show/Hide Window<br />
+        ⌘ + 8 / 9 → Scroll Output<br />
+        ⌘ + ↑ ↓ ← → → Move Overlay Window<br />
       </div>
     </div>
     <div id="result">Waiting for screenshot...</div>
     <div class="instructions">
-      ⌘ + 0 = Quit | ⌘ + 1 = Screenshot & Analyze | ⌘ + 2 = Show/Hide | ⌘ + 8/9 = Scroll | ⌘ + Arrow = Move
+      ⌘ + 0 = Quit | ⌘ + 1 = Screenshot & Analyze | ⌘ + 2 = Show/Hide | ⌘ + 8/9
+      = Scroll | ⌘ + Arrow = Move
     </div>
     <script>
-      const { ipcRenderer } = require('electron');
+      const { ipcRenderer } = require("electron");
 
       function start() {
-       try{
-         const language = document.getElementById('language').value.trim();
-        const model = document.getElementById('model').value.trim();
-        if (!language || !model) return alert('Please enter details');
-        ipcRenderer.send('enter-stealth-mode', language, model);
-        document.getElementById('setup').style.display = 'none';
-        const result = document.getElementById('result');
-        result.style.display = 'block';
-        result.innerText = 'Waiting for screenshot...';
-      }catch(e){
-        console.log(e);
+        try {
+          const language = document.getElementById("language").value.trim();
+          const model = document.getElementById("model").value.trim();
+          if (!language || !model) return alert("Please enter details");
+          ipcRenderer.send("enter-stealth-mode", language, model);
+          document.getElementById("setup").style.display = "none";
+          const result = document.getElementById("result");
+          result.style.display = "block";
+          result.innerText = "Waiting for screenshot...";
+        } catch (e) {
+          console.log(e);
+        }
       }
-    }
-      ipcRenderer.on('ai-response', (_, data) => {
-        const result = document.getElementById('result');
+      ipcRenderer.on("ai-response", (_, data) => {
+        const result = document.getElementById("result");
         result.innerText = data;
         result.scrollTop = 0;
       });
 
-      ipcRenderer.on('scroll-up', () => {
-        const result = document.getElementById('result');
+      ipcRenderer.on("scroll-up", () => {
+        const result = document.getElementById("result");
         result.scrollTop -= 100;
       });
 
-      ipcRenderer.on('scroll-down', () => {
-        const result = document.getElementById('result');
+      ipcRenderer.on("scroll-down", () => {
+        const result = document.getElementById("result");
         result.scrollTop += 100;
       });
     </script>

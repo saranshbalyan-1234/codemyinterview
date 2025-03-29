@@ -1,8 +1,8 @@
-# 🕵️‍♂️ StealthOverlay
+# 🕵️‍♂️ CodeMyInterview
 
 A transparent, always-on-top Electron overlay that lets you:
 
-✅ Take screenshots and send to ChatGPT  
+✅ Take screenshots and send to AI  
 ✅ Interact with AI responses directly in a floating window  
 ✅ Stay invisible to screen recording and sharing tools  
 ✅ Use customizable keyboard shortcuts for full control
@@ -27,7 +27,7 @@ A transparent, always-on-top Electron overlay that lets you:
 | Shortcut        | Action                           |
 |----------------|----------------------------------|
 | ⌘ + 0          | Quit the app                     |
-| ⌘ + 1          | Take a screenshot & ask ChatGPT  |
+| ⌘ + 1          | Take a screenshot & ask AI  |
 | ⌘ + 8 / ⌘ + 9  | Scroll AI response up/down       |
 | ⌘ + Arrows     | Move window around screen        |
 

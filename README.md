@@ -2,6 +2,7 @@
 
 A transparent, always-on-top Electron overlay that lets you:
 
+✅ Always free, no need to buy any other tool.
 ✅ Take screenshots and send to AI  
 ✅ Interact with AI responses directly in a floating window  
 ✅ Stay invisible to screen recording and sharing tools  
@@ -47,8 +48,12 @@ A transparent, always-on-top Electron overlay that lets you:
 
 ## ⚙️ Developer Setup
 
-```bash
-git clone https://github.com/saranshbalyan-1234/codemyinterview.git
-cd codemyinterview
-npm install
-npm start
+  ```bash
+  git clone https://github.com/saranshbalyan-1234/codemyinterview.git
+  cd codemyinterview
+  npm install
+  npm start
+
+## 🚀 Note
+- Generate your key from google Studio and encode in base64 and paste it in key.js
+- Your your own api in ai.js, make sure to change index.html accordingly

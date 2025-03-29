@@ -24,10 +24,11 @@ A transparent, always-on-top Electron overlay that lets you:
 
 ## 🧠 Keyboard Shortcuts
 
-| Shortcut        | Action                           |
+| Shortcut        | Action                          |
 |----------------|----------------------------------|
 | ⌘ + 0          | Quit the app                     |
-| ⌘ + 1          | Take a screenshot & ask AI  |
+| ⌘ + 1          | Take a screenshot & ask AI       |
+| ⌘ + 2          | Show/Hide Window                 |
 | ⌘ + 8 / ⌘ + 9  | Scroll AI response up/down       |
 | ⌘ + Arrows     | Move window around screen        |
 

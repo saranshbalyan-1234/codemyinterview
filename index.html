@@ -61,15 +61,16 @@
       <button onclick="start()">Start</button>
       <div style="margin-top: 20px; padding: 10px; border: 1px solid rgba(255,255,255,0.3); width: 320px; font-size: 13px; line-height: 1.5; background-color: rgba(255,255,255,0.05); border-radius: 6px;">
         <strong>Hotkeys:</strong><br>
+        ⌘ + 0 → Quit App<br>
         ⌘ + 1 → Screenshot & Analyze<br>
+        ⌘ + 2 = Show/Hide Window<br>
         ⌘ + 8 / 9 → Scroll Output<br>
         ⌘ + ↑ ↓ ← → → Move Overlay Window<br>
-        ⌘ + 0 → Quit App
       </div>
     </div>
     <div id="result">Waiting for screenshot...</div>
     <div class="instructions">
-       ⌘ + 1 = Screenshot & Analyze | ⌘ + 8/9 = Scroll | ⌘ + Arrow = Move | ⌘ + 0 = Quit 
+      ⌘ + 0 = Quit | ⌘ + 1 = Screenshot & Analyze | ⌘ + 2 = Show/Hide | ⌘ + 8/9 = Scroll | ⌘ + Arrow = Move
     </div>
     <script>
       const { ipcRenderer } = require('electron');

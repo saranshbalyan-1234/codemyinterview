@@ -6,6 +6,7 @@ let win;
 let stealthMode = false;
 let language = '';
 let model = '';
+let isVisible = true;
 
 app.whenReady().then(() => {
   app.setName(' ');
@@ -62,6 +63,14 @@ app.whenReady().then(() => {
     });
   });
 
+  globalShortcut.register('Command+2', () => {
+    if (isVisible) {
+      win.hide();
+    } else {
+      win.show();
+    }
+    isVisible = !isVisible;
+  });
 
   globalShortcut.register('Command+8', () => win.webContents.send('scroll-up'));
   globalShortcut.register('Command+9', () => win.webContents.send('scroll-down'));

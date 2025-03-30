@@ -99,7 +99,8 @@
         ⌘ + 0 → Quit App<br />
         ⌘ + 1 → Screenshot & Analyze<br />
         ⌘ + 2 = Show/Hide Window<br />
-        ⌘ + 3 = Show/Hide Chat Option (Interactive)<br />
+        ⌘ + 3 = Toggle Interactive<br />
+        ⌘ + 4 = Toggle Chat<br />
         ⌘ + 8 / 9 → Scroll Output<br />
         ⌘ + ↑ ↓ ← → → Move Overlay Window<br />
       </div>
@@ -111,7 +112,7 @@
       <button onclick="submit()">Submit</button>
     </div>
     <div class="instructions">
-      ⌘ + 0 = Quit | ⌘ + 1 = Screenshot & Analyze | ⌘ + 2 = Show/Hide | ⌘ + 3 = Interactive Chat | ⌘ + 8/9
+      ⌘ + 0 = Quit | ⌘ + 1 = Screenshot & Analyze | ⌘ + 2 = Show/Hide | ⌘ + 3/4 = Toggle Interactive/Chat | ⌘ + 8/9
       = Scroll | ⌘ + Arrow = Move
     </div>
     <script>
@@ -147,7 +148,7 @@
         result.scrollTop += 100;
       });
 
-      ipcRenderer.on("interactive", (_, interactive) => {
+      ipcRenderer.on("chat", (_, interactive) => {
         const question = document.getElementById("question-wrapper");
         question.style.display =
           question.style.display == "flex" ? "none" : "flex";

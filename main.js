@@ -9,6 +9,7 @@ let language = "";
 let model = "";
 let isVisible = true;
 let isInteractive = false;
+let isChat = false;
 
 const toggleKey = process.platform === "darwin" ? "Command" : "Control";
 
@@ -90,7 +91,14 @@ app.whenReady().then(() => {
     console.log(
       `Window is now ${isInteractive ? "interactive" : "click-through"}`,
     );
-    win.webContents.send("interactive", isInteractive);
+    // win.webContents.send("interactive", isInteractive);
+  });
+
+  globalShortcut.register(`${toggleKey}+4`, () => {
+    if (!stealthMode) return;
+    isChat = !isChat;
+    console.log(`chat is now active`);
+    win.webContents.send("chat",isChat);
   });
 
   globalShortcut.register(`${toggleKey}+8`, () =>

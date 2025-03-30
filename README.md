@@ -25,6 +25,7 @@ A transparent, always-on-top Electron overlay that lets you:
 
 ## 🧠 Keyboard Shortcuts
 
+|--------------------------------------------|
 | Shortcut      | Action                     |
 | ------------- | -------------------------- |
 | ⌘ + 0         | Quit the app               |
@@ -34,7 +35,7 @@ A transparent, always-on-top Electron overlay that lets you:
 | ⌘ + 4         | Toggle Chat                |
 | ⌘ + 8 / ⌘ + 9 | Scroll AI response up/down |
 | ⌘ + Arrows    | Move window around screen  |
-----------------------------------------------
+|--------------------------------------------|
 
 ## 🛠 Installation
 

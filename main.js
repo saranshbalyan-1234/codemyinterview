@@ -1,6 +1,6 @@
 const { app, BrowserWindow, globalShortcut, ipcMain } = require("electron");
 const screenshot = require("screenshot-desktop");
-const { imageAi } = require("./ai");
+const { imageAi, chatAi } = require("./ai");
 const path = require("path");
 
 let win;
@@ -80,15 +80,17 @@ app.whenReady().then(() => {
       win.show();
     }
     isVisible = !isVisible;
-    console.log(`Window is now ${isVisible ? 'visible' : 'hidden'}`);
+    console.log(`Window is now ${isVisible ? "visible" : "hidden"}`);
   });
 
   globalShortcut.register(`${toggleKey}+3`, () => {
     if (!stealthMode) return;
     isInteractive = !isInteractive;
     win.setIgnoreMouseEvents(!isInteractive, { forward: true });
-    console.log(`Window is now ${isInteractive ? 'interactive' : 'click-through'}`);
-    win.webContents.send("interactive");
+    console.log(
+      `Window is now ${isInteractive ? "interactive" : "click-through"}`,
+    );
+    win.webContents.send("interactive", isInteractive);
   });
 
   globalShortcut.register(`${toggleKey}+8`, () =>
@@ -105,6 +107,10 @@ ipcMain.on("enter-stealth-mode", (_, lan, mod) => {
   stealthMode = true;
   win.setIgnoreMouseEvents(true);
   win.setContentProtection(true);
+});
+
+ipcMain.on("search-with-ai", (_, text) => {
+  chatAi(text, language, model, win);
 });
 
 app.on("will-quit", () => globalShortcut.unregisterAll());

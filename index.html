@@ -55,7 +55,7 @@
       }
       .question-wrapper {
         display: none;
-        gap:10px;
+        gap: 10px;
       }
       .question {
         margin-top: 12px;
@@ -99,6 +99,7 @@
         ⌘ + 0 → Quit App<br />
         ⌘ + 1 → Screenshot & Analyze<br />
         ⌘ + 2 = Show/Hide Window<br />
+        ⌘ + 3 = Show/Hide Chat Option (Interactive)<br />
         ⌘ + 8 / 9 → Scroll Output<br />
         ⌘ + ↑ ↓ ← → → Move Overlay Window<br />
       </div>
@@ -106,11 +107,11 @@
     <div id="result">Waiting for screenshot...</div>
 
     <div id="question-wrapper" class="question-wrapper flex">
-      <textarea id="question" class="question" rows="4" cols="50" ></textarea>
+      <textarea id="question" class="question" rows="4" cols="50"></textarea>
       <button onclick="submit()">Submit</button>
     </div>
     <div class="instructions">
-      ⌘ + 0 = Quit | ⌘ + 1 = Screenshot & Analyze | ⌘ + 2 = Show/Hide | ⌘ + 8/9
+      ⌘ + 0 = Quit | ⌘ + 1 = Screenshot & Analyze | ⌘ + 2 = Show/Hide | ⌘ + 3 = Interactive Chat | ⌘ + 8/9
       = Scroll | ⌘ + Arrow = Move
     </div>
     <script>
@@ -146,18 +147,24 @@
         result.scrollTop += 100;
       });
 
-      ipcRenderer.on("interactive", () => {
+      ipcRenderer.on("interactive", (_, interactive) => {
         const question = document.getElementById("question-wrapper");
-        question.style.display = question.style.display == "flex" ? "none" : "flex";
+        question.style.display =
+          question.style.display == "flex" ? "none" : "flex";
         const result = document.getElementById("result");
-          result.innerText = result.innerText == "Waiting for input..."? "Waiting for screenshot...": "Waiting for input...";
+        result.innerText = interactive
+          ? "Waiting for input..."
+          : "Waiting for screenshot...";
       });
 
       function submit() {
-        try{
-          
-        }catch(err){
-
+        try {
+          ipcRenderer.send(
+            "search-with-ai",
+            document.getElementById("question").value,
+          );
+        } catch (err) {
+          console.log(err);
         }
       }
     </script>

@@ -45,4 +45,42 @@ async function imageAi(base64Image, language, model, win) {
   }
 }
 
-module.exports = { imageAi };
+async function chatAi(content, language, model, win) {
+  win.webContents.send("ai-response", "Loading...");
+
+  const payload = {
+    contents: [
+      {
+        parts: [
+          {
+            text: `${content}, using ${language}`,
+          },
+        ],
+      },
+    ],
+  };
+
+  console.log(`using ${language}, model: ${model}`);
+  console.log("key", apiKey);
+  console.log("Uploading image");
+
+  try {
+    const res = await axios.post(
+      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+      payload,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+    const text = res.data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    win.webContents.send("ai-response", text || "No conent, Try again");
+  } catch (err) {
+    const er = err.response?.data || err.message;
+    console.error("Error:", er);
+    win.webContents.send("ai-response", er);
+  }
+}
+
+module.exports = { imageAi, chatAi };

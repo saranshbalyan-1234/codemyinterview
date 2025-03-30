@@ -8,6 +8,8 @@ let stealthMode = false;
 let language = "";
 let model = "";
 let isVisible = true;
+let isInteractive = false;
+
 const toggleKey = process.platform === "darwin" ? "Command" : "Control";
 
 app.whenReady().then(() => {
@@ -78,6 +80,15 @@ app.whenReady().then(() => {
       win.show();
     }
     isVisible = !isVisible;
+    console.log(`Window is now ${isVisible ? 'visible' : 'hidden'}`);
+  });
+
+  globalShortcut.register(`${toggleKey}+3`, () => {
+    if (!stealthMode) return;
+    isInteractive = !isInteractive;
+    win.setIgnoreMouseEvents(!isInteractive, { forward: true });
+    console.log(`Window is now ${isInteractive ? 'interactive' : 'click-through'}`);
+    win.webContents.send("interactive");
   });
 
   globalShortcut.register(`${toggleKey}+8`, () =>

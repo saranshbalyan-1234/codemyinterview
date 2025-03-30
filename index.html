@@ -50,6 +50,19 @@
       button {
         padding: 8px 16px;
         margin-top: 12px;
+        cursor: pointer;
+        border: 1px solid black;
+      }
+      .question-wrapper {
+        display: none;
+        gap:10px;
+      }
+      .question {
+        margin-top: 12px;
+      }
+      .flex {
+        justify-content: center;
+        align-items: center;
       }
     </style>
   </head>
@@ -91,6 +104,11 @@
       </div>
     </div>
     <div id="result">Waiting for screenshot...</div>
+
+    <div id="question-wrapper" class="question-wrapper flex">
+      <textarea id="question" class="question" rows="4" cols="50" ></textarea>
+      <button onclick="submit()">Submit</button>
+    </div>
     <div class="instructions">
       ⌘ + 0 = Quit | ⌘ + 1 = Screenshot & Analyze | ⌘ + 2 = Show/Hide | ⌘ + 8/9
       = Scroll | ⌘ + Arrow = Move
@@ -127,6 +145,21 @@
         const result = document.getElementById("result");
         result.scrollTop += 100;
       });
+
+      ipcRenderer.on("interactive", () => {
+        const question = document.getElementById("question-wrapper");
+        question.style.display = question.style.display == "flex" ? "none" : "flex";
+        const result = document.getElementById("result");
+          result.innerText = result.innerText == "Waiting for input..."? "Waiting for screenshot...": "Waiting for input...";
+      });
+
+      function submit() {
+        try{
+          
+        }catch(err){
+
+        }
+      }
     </script>
   </body>
 </html>

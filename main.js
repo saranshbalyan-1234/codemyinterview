@@ -35,7 +35,7 @@ app.whenReady().then(() => {
     },
     icon: path.join(__dirname, "assets", getPlatformIcon()), // 👇
   });
-
+  win.setContentProtection(true);
   win.loadFile("index.html");
 
   const moveStep = 20;
@@ -114,7 +114,7 @@ ipcMain.on("enter-stealth-mode", (_, lan, mod) => {
   model = mod;
   stealthMode = true;
   win.setIgnoreMouseEvents(true);
-  win.setContentProtection(true);
+  // win.setContentProtection(true);
 });
 
 ipcMain.on("search-with-ai", (_, text) => {

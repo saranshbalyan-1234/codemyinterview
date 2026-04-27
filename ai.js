@@ -76,11 +76,12 @@ async function chatAi(content, language, model, win) {
       },
     );
     const text = res.data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    console.log("AI Response:", text);
     win.webContents.send("ai-response", text || "No content, Try again");
   } catch (err) {
     const er = err.response?.data || err.message;
     console.error("Error:", er);
-    win.webContents.send("ai-response", er);
+    win.webContents.send("ai-response", 'Error:'+er.error?.message || er);
   }
 }
 

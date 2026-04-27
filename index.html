@@ -22,6 +22,10 @@
         padding-top: 10px;
         text-align: center;
         opacity: 0.8;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
       }
       #setup {
         display: flex;
@@ -59,6 +63,10 @@
       }
       .question {
         margin-top: 12px;
+        border-radius: 8px;
+      }
+      .rounded {
+        border-radius: 4px;
       }
       .flex {
         justify-content: center;
@@ -67,7 +75,10 @@
     </style>
   </head>
   <body>
-    <div class="header">Code My Interview: By Saransh</div>
+    <div class="header">
+      <div id="title">Code My Interview: By Saransh</div>
+      <div id="mode">Click Through Mode</div>
+  </div>
     <div id="setup">
       <h2>Code My Interview</h2>
       <input
@@ -75,14 +86,16 @@
         id="language"
         placeholder="language"
         value="javascript"
+        class="rounded"
       />
       <input
         type="text"
         id="model"
         placeholder="model"
-        value="gemini-2.0-flash"
+        value="gemini-3-flash-preview"
+        class="rounded"
       />
-      <button onclick="start()">Start</button>
+      <button class="rounded" onclick="start()">Start</button>
       <div
         style="
           margin-top: 20px;
@@ -96,12 +109,12 @@
         "
       >
         <strong>Hotkeys:</strong><br />
-        ⌘ + 0 → Quit App<br />
+        ⌘ + Esc → Quit App<br />
         ⌘ + 1 → Screenshot & Analyze<br />
-        ⌘ + 2 = Show/Hide Window<br />
+        ⌘ + 2 = Toggle Chat<br />
         ⌘ + 3 = Toggle Interactive<br />
-        ⌘ + 4 = Toggle Chat<br />
         ⌘ + 8 / 9 → Scroll Output<br />
+        ⌘ + 0 = Show/Hide Window<br />
         ⌘ + ↑ ↓ ← → → Move Overlay Window<br />
       </div>
     </div>
@@ -109,10 +122,10 @@
 
     <div id="question-wrapper" class="question-wrapper flex">
       <textarea id="question" class="question" rows="4" cols="50"></textarea>
-      <button onclick="submit()">Submit</button>
+      <button id="submit" class="rounded" onclick="submit()">Submit</button>
     </div>
     <div class="instructions">
-      ⌘ + 0 = Quit | ⌘ + 1 = Screenshot & Analyze | ⌘ + 2 = Show/Hide | ⌘ + 3/4 = Toggle Interactive/Chat | ⌘ + 8/9
+      ⌘ + Esc = Quit | ⌘ + 1 = Screenshot & Analyze | ⌘ + 2/3 = Toggle Chat/Interactive | ⌘ + 8/9 | ⌘ + 0 = Show/Hide
       = Scroll | ⌘ + Arrow = Move
     </div>
     <script>
@@ -158,12 +171,20 @@
           : "Waiting for screenshot...";
       });
 
+      ipcRenderer.on("interactive", (_, interactive) => {
+        const mode = document.getElementById("mode");
+        mode.innerText = interactive
+          ? "Interactive Mode"
+          : "Click Through Mode";
+      });
+
       function submit() {
         try {
           ipcRenderer.send(
             "search-with-ai",
             document.getElementById("question").value,
           );
+          document.getElementById("question").value = ""
         } catch (err) {
           console.log(err);
         }

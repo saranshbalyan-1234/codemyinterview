@@ -56,7 +56,8 @@ app.whenReady().then(() => {
     win.setBounds({ x, y: y + moveStep, width: 800, height: 600 });
   });
 
-  globalShortcut.register(`${toggleKey}+0`, () => app.quit());
+  // globalShortcut.register(`${toggleKey}+0`, () => app.quit());
+  globalShortcut.register(`${toggleKey}+Escape`, () => app.quit());
 
   globalShortcut.register(`${toggleKey}+1`, () => {
     if (!stealthMode) return;
@@ -74,7 +75,7 @@ app.whenReady().then(() => {
       });
   });
 
-  globalShortcut.register(`${toggleKey}+2`, () => {
+  globalShortcut.register(`${toggleKey}+0`, () => {
     if (isVisible) {
       win.hide();
     } else {
@@ -91,14 +92,19 @@ app.whenReady().then(() => {
     console.log(
       `Window is now ${isInteractive ? "interactive" : "click-through"}`,
     );
-    // win.webContents.send("interactive", isInteractive);
+    win.webContents.send("interactive", isInteractive);
   });
 
-  globalShortcut.register(`${toggleKey}+4`, () => {
+  globalShortcut.register(`${toggleKey}+2`, () => {
     if (!stealthMode) return;
     isChat = !isChat;
-    console.log(`chat is now active`);
-    win.webContents.send("chat",isChat);
+
+    isInteractive = isChat; // Sync interactive with chat mode
+    win.webContents.send("interactive", isInteractive);
+
+    win.setIgnoreMouseEvents(!isInteractive, { forward: true });
+    console.log(isChat ? `chat mode is now active + interactive` : `Screenshot mode is not active + click through`);
+    win.webContents.send("chat", isChat);
   });
 
   globalShortcut.register(`${toggleKey}+8`, () =>

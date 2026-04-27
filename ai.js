@@ -15,7 +15,7 @@ async function imageAi(base64Image, language, model, win) {
             },
           },
           {
-            text: `Solve this using ${language} in a optimized way and give me answer in following format, what is problem statement, whats the solution and explanation of solution,an alternate solution and whats the time and space complexity, is there any other way to improve this`,
+            text: `Solve this using ${language} in an optimized way and give me answer in following format: what is problem statement, what's the solution and explanation of solution, an alternate solution and what's the time and space complexity, is there any other way to improve this`,
           },
         ],
       },
@@ -28,16 +28,17 @@ async function imageAi(base64Image, language, model, win) {
 
   try {
     const res = await axios.post(
-      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
       payload,
       {
         headers: {
+          "x-goog-api-key": apiKey,
           "Content-Type": "application/json",
         },
       },
     );
     const text = res.data?.candidates?.[0]?.content?.parts?.[0]?.text;
-    win.webContents.send("ai-response", text || "No conent, Try again");
+    win.webContents.send("ai-response", text || "No content, Try again");
   } catch (err) {
     const er = err.response?.data || err.message;
     console.error("Error:", er);
@@ -62,20 +63,20 @@ async function chatAi(content, language, model, win) {
 
   console.log(`using ${language}, model: ${model}`);
   console.log("key", apiKey);
-  console.log("Uploading image");
 
   try {
     const res = await axios.post(
-      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
       payload,
       {
         headers: {
+          "x-goog-api-key": apiKey,
           "Content-Type": "application/json",
         },
       },
     );
     const text = res.data?.candidates?.[0]?.content?.parts?.[0]?.text;
-    win.webContents.send("ai-response", text || "No conent, Try again");
+    win.webContents.send("ai-response", text || "No content, Try again");
   } catch (err) {
     const er = err.response?.data || err.message;
     console.error("Error:", er);

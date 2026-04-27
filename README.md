@@ -12,14 +12,14 @@ A transparent, always-on-top Electron overlay that lets you:
 
 ## 🚀 Features
 
-- **Stealth Mode** (click-through + screen-capture protected)
-- **AI Integration**
+•⁠  ⁠*Stealth Mode* (click-through + screen-capture protected)
+•⁠  ⁠*AI Integration*
   - screenshot the window, analyse it and find the solution
-- **Always on Top Overlay**
+•⁠  ⁠*Always on Top Overlay*
   - Transparent
   - No dock/taskbar icon
-- **Hotkey Controls**
-- **Mac, Windows, and Linux builds**
+•⁠  ⁠*Hotkey Controls*
+•⁠  ⁠*Mac, Windows, and Linux builds*
 
 ---
 
@@ -39,26 +39,26 @@ A transparent, always-on-top Electron overlay that lets you:
 
 ## 🛠 Installation
 
-### macOS (after extracting `.dmg`)
+### macOS (after extracting ⁠ .dmg ⁠)
 
-1. Drag `CodeMyInterview.app` to `/Applications`
-2. Run this in Terminal to bypass Gatekeeper:
+1.⁠ ⁠Drag ⁠ CodeMyInterview.app ⁠ to ⁠ /Applications ⁠
+2.⁠ ⁠Run this in Terminal to bypass Gatekeeper:
 
-   ```bash
+   ⁠ bash
    xattr -cr /Applications/CodeMyInterview.app
    open /Applications/CodeMyInterview.app
-   ```
+    ⁠
 
 ## ⚙️ Developer Setup
 
-```bash
+⁠ bash
   git clone https://github.com/saranshbalyan-1234/codemyinterview.git
   cd codemyinterview
   npm install
   npm start
-```
+ ⁠
 
 ### 🚀 Note
 
-- Generate your key from google Studio and encode in base64 and paste it in key.js
-- Your your own api in ai.js, make sure to change index.html accordingly
+•⁠  ⁠Generate your key from google Studio and encode in base64 and paste it in key.js
+•⁠  ⁠Your your own api in ai.js, make sure to change index.html accordingly
